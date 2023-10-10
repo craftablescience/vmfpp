@@ -44,6 +44,10 @@ const std::vector<Node>& Node::getChild(const std::string& key) const {
     return this->children.at(key);
 }
 
+std::vector<Node>& Node::getChild(const std::string& key) {
+    return this->children.at(key);
+}
+
 void Node::addChild(std::string key, Node value) {
     if (this->children.count(key) == 0) {
         this->children[key] = {};
@@ -72,6 +76,10 @@ bool Root::hasSection(std::string_view key) const {
 }
 
 const std::vector<Node>& Root::getSection(std::string_view key) const {
+    return this->getChild(key.data());
+}
+
+std::vector<Node>& Root::getSection(std::string_view key) {
     return this->getChild(key.data());
 }
 

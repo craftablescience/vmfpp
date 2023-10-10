@@ -46,6 +46,8 @@ public:
 
     [[nodiscard]] const std::vector<vmfpp::Node>& getChild(const std::string& key) const;
 
+    [[nodiscard]] std::vector<vmfpp::Node>& getChild(const std::string& key);
+
     void addChild(std::string key, Node value);
 
     void removeChild(const std::string& key);
@@ -69,6 +71,8 @@ public:
     [[nodiscard]] bool hasSection(std::string_view key) const;
 
     [[nodiscard]] const std::vector<vmfpp::Node>& getSection(std::string_view key) const;
+
+    [[nodiscard]] std::vector<vmfpp::Node>& getSection(std::string_view key);
 
     void addSection(std::string key, Node value);
 
