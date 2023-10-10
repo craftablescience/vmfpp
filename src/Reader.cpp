@@ -1,5 +1,6 @@
 #include <vmfpp/Reader.h>
 
+#include <algorithm>
 #include <sstream>
 #include <fstream>
 
