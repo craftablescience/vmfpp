@@ -60,7 +60,8 @@ node
     ASSERT_EQ(root.getSections().at("node").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getNumItems(), 1);
     ASSERT_TRUE(root.getSections().at("node").at(0).hasValue("key"));
-    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").data(), "value");
+    ASSERT_EQ(root.getSections().at("node").at(0).getValue("key").size(), 1);
+    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").at(0).data(), "value");
 }
 
 TEST(Reader, valueMultiline) {
@@ -81,7 +82,8 @@ several lines"
     ASSERT_EQ(root.getSections().at("node").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getNumItems(), 1);
     ASSERT_TRUE(root.getSections().at("node").at(0).hasValue("key"));
-    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").data(), "value\non\nseveral lines");
+    ASSERT_EQ(root.getSections().at("node").at(0).getValue("key").size(), 1);
+    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").at(0).data(), "value\non\nseveral lines");
 }
 
 TEST(Reader, childEmpty) {
@@ -128,7 +130,8 @@ node
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key").at(0).getNumItems(), 1);
     ASSERT_TRUE(root.getSections().at("node").at(0).getChild("key").at(0).hasValue("inner"));
-    ASSERT_STREQ(root.getSections().at("node").at(0).getChild("key").at(0).getValue("inner").data(), "value");
+    ASSERT_EQ(root.getSections().at("node").at(0).getChild("key").at(0).getValue("inner").size(), 1);
+    ASSERT_STREQ(root.getSections().at("node").at(0).getChild("key").at(0).getValue("inner").at(0).data(), "value");
 }
 
 TEST(Reader, valueBasicAndChild) {
@@ -150,7 +153,8 @@ node
     ASSERT_EQ(root.getSections().at("node").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getNumItems(), 2);
     ASSERT_TRUE(root.getSections().at("node").at(0).hasValue("key"));
-    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").data(), "value");
+    ASSERT_EQ(root.getSections().at("node").at(0).getValue("key").size(), 1);
+    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").at(0).data(), "value");
     ASSERT_TRUE(root.getSections().at("node").at(0).hasChild("key2"));
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key2").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key2").at(0).getNumItems(), 0);
@@ -177,7 +181,8 @@ several lines"
     ASSERT_EQ(root.getSections().at("node").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getNumItems(), 2);
     ASSERT_TRUE(root.getSections().at("node").at(0).hasValue("key"));
-    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").data(), "value\non\nseveral lines");
+    ASSERT_EQ(root.getSections().at("node").at(0).getValue("key").size(), 1);
+    ASSERT_STREQ(root.getSections().at("node").at(0).getValue("key").at(0).data(), "value\non\nseveral lines");
     ASSERT_TRUE(root.getSections().at("node").at(0).hasChild("key2"));
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key2").size(), 1);
     ASSERT_EQ(root.getSections().at("node").at(0).getChild("key2").at(0).getNumItems(), 0);
@@ -192,10 +197,12 @@ TEST(Reader, file) {
     ASSERT_EQ(root.getSections().at("entity").size(), 3);
     ASSERT_EQ(root.getSections().at("entity").at(0).getNumItems(), 5);
     ASSERT_TRUE(root.getSections().at("entity").at(0).hasValue("classname"));
-    ASSERT_STREQ(root.getSections().at("entity").at(0).getValue("classname").data(), "info_player_start");
+    ASSERT_EQ(root.getSections().at("entity").at(0).getValue("classname").size(), 1);
+    ASSERT_STREQ(root.getSections().at("entity").at(0).getValue("classname").at(0).data(), "info_player_start");
     ASSERT_TRUE(root.getSections().at("entity").at(0).hasChild("editor"));
     ASSERT_EQ(root.getSections().at("entity").at(0).getChild("editor").size(), 1);
     ASSERT_EQ(root.getSections().at("entity").at(0).getChild("editor").at(0).getNumItems(), 4);
     ASSERT_TRUE(root.getSections().at("entity").at(0).getChild("editor").at(0).hasValue("color"));
-    ASSERT_STREQ(root.getSections().at("entity").at(0).getChild("editor").at(0).getValue("color").data(), "0 255 0");
+    ASSERT_EQ(root.getSections().at("entity").at(0).getChild("editor").at(0).getValue("color").size(), 1);
+    ASSERT_STREQ(root.getSections().at("entity").at(0).getChild("editor").at(0).getValue("color").at(0).data(), "0 255 0");
 }

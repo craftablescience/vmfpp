@@ -4,24 +4,31 @@
 
 using namespace vmfpp;
 
-const std::unordered_map<std::string, std::string>& Node::getValues() const {
+const std::unordered_map<std::string, std::vector<std::string>>& Node::getValues() const {
     return this->values;
 }
 
-std::unordered_map<std::string, std::string>& Node::getValues() {
+std::unordered_map<std::string, std::vector<std::string>>& Node::getValues() {
     return this->values;
 }
 
 bool Node::hasValue(const std::string& key) const {
-    return this->values.count(key) != 0;
+    return this->values.contains(key);
 }
 
-std::string_view Node::getValue(const std::string& key) const {
+const std::vector<std::string>& Node::getValue(const std::string& key) const {
+    return this->values.at(key);
+}
+
+std::vector<std::string>& Node::getValue(const std::string& key) {
     return this->values.at(key);
 }
 
 void Node::addValue(std::string key, std::string value) {
-    this->values[std::move(key)] = std::move(value);
+    if (!this->values.contains(key)) {
+        this->values[key] = {};
+    }
+    this->values[std::move(key)].push_back(std::move(value));
 }
 
 void Node::removeValue(const std::string& key) {
@@ -37,7 +44,7 @@ std::unordered_map<std::string, std::vector<Node>>& Node::getChildren() {
 }
 
 bool Node::hasChild(const std::string& key) const {
-    return this->children.count(key) != 0;;
+    return this->children.contains(key);
 }
 
 const std::vector<Node>& Node::getChild(const std::string& key) const {
@@ -49,7 +56,7 @@ std::vector<Node>& Node::getChild(const std::string& key) {
 }
 
 void Node::addChild(std::string key, Node value) {
-    if (this->children.count(key) == 0) {
+    if (!this->children.contains(key)) {
         this->children[key] = {};
     }
     this->children.at(key).push_back(std::move(value));

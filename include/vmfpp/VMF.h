@@ -26,13 +26,15 @@ class Node {
 public:
     Node() = default;
 
-    [[nodiscard]] const std::unordered_map<std::string, std::string>& getValues() const;
+    [[nodiscard]] const std::unordered_map<std::string, std::vector<std::string>>& getValues() const;
 
-    [[nodiscard]] std::unordered_map<std::string, std::string>& getValues();
+    [[nodiscard]] std::unordered_map<std::string, std::vector<std::string>>& getValues();
 
     [[nodiscard]] bool hasValue(const std::string& key) const;
 
-    [[nodiscard]] std::string_view getValue(const std::string& key) const;
+    [[nodiscard]] const std::vector<std::string>& getValue(const std::string& key) const;
+
+    [[nodiscard]] std::vector<std::string>& getValue(const std::string& key);
 
     void addValue(std::string key, std::string value);
 
@@ -55,7 +57,7 @@ public:
     [[nodiscard]] std::size_t getNumItems() const;
 
 protected:
-    std::unordered_map<std::string, std::string> values;
+    std::unordered_map<std::string, std::vector<std::string>> values;
     std::unordered_map<std::string, std::vector<Node>> children;
 };
 
