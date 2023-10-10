@@ -67,18 +67,22 @@ std::unordered_map<std::string, std::vector<Node>> Root::getSections() {
     return this->children;
 }
 
-bool Root::hasSection(const std::string& key) const {
-    return this->hasChild(key);
+bool Root::hasSection(std::string_view key) const {
+    return this->hasChild(key.data());
 }
 
-const std::vector<Node>& Root::getSection(const std::string& key) const {
-    return this->getChild(key);
+const std::vector<Node>& Root::getSection(std::string_view key) const {
+    return this->getChild(key.data());
 }
 
 void Root::addSection(std::string key, Node value) {
     this->addChild(std::move(key), std::move(value));
 }
 
-void Root::removeSection(const std::string& key) {
-    this->removeChild(key);
+void Root::addSection(std::string_view key, Node value) {
+    this->addChild(key.data(), std::move(value));
+}
+
+void Root::removeSection(std::string_view key) {
+    this->removeChild(key.data());
 }
