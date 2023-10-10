@@ -1,0 +1,3 @@
+#include <string_view>
+
+constexpr std::string_view TEST_VMF_PATH = "${VMFPP_TEST_VMF_PATH}";

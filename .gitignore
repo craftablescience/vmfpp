@@ -1,6 +1,10 @@
+# IDEs
+.idea/
+.vs/
+.vscode/
 
-\.DS_Store
+# Project exclude paths
+cmake-build-*/
 
-\.idea/
-
-maps/
+# Generated
+test/Config.h
